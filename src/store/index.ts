@@ -28,6 +28,10 @@ export default new Vuex.Store({
       const userProfile = await db.app.auth().currentUser
 
       console.log(userProfile)
+    },
+
+    async saveProduct({dispatch}, form) {
+      await db.app.firestore().collection('products').doc().set(form)
     }
   },
   modules: {},
