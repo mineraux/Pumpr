@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent>
+  <form @submit.prevent="onSubmitLogin">
     <div>
       <label for="email">Email</label>
       <input type="email" id="email" v-model="loginForm.email" />
@@ -8,16 +8,16 @@
       <label for="paswword">Password</label>
       <input type="password" id="password" v-model="loginForm.password" />
     </div>
-    <button @click="login">Log In</button>
+    <el-button type="primary" @click="login">Text Button</el-button>
   </form>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
 type Credentials = {
-  email: string,
+  email: string
   password: string
 }
 

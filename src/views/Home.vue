@@ -6,19 +6,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { db } from "@/firebase/db";
+import { Component, Vue } from 'vue-property-decorator'
+import { db } from '@/firebase/db'
 
 @Component({})
 export default class Home extends Vue {
   onClick(): void {
     db.collection('myCollection')
-    .get()
-    .then(querySnapshot => {
-      const documents = querySnapshot.docs.map(doc => doc.data())
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data())
 
-      console.log(documents)
-    })
+        console.log(documents)
+      })
   }
 }
 </script>
