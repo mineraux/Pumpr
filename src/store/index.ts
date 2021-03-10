@@ -6,22 +6,19 @@ import { firestoreAction, vuexfireMutations } from 'vuexfire'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    names : [
-      {
-        name: "test"
-      }
-    ]
-  },
+  state: {},
   mutations: vuexfireMutations,
   actions: {
-    bindTodos: firestoreAction(({ bindFirestoreRef }) => {
-      // return the promise returned by `bindFirestoreRef`
-      return bindFirestoreRef('todos', db.collection('todos'))
-    }),
+    async login({dispatch}, form) {
+      const { user } = await db.app.auth().signInWithEmailAndPassword(form.email, form.password)
+
+      dispatch('fetchUserProfile', user)
+    },
+
+    async fetchUserProfile({ commit }, user) {
+      const userProfile = await db.app.auth().currentUser
+    }
   },
   modules: {},
-  getters: {
-    names: state => state.names
-  }
+  getters: {}
 });
