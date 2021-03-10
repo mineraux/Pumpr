@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
     <button @click="onClick">Get data</button>
   </div>
 </template>
