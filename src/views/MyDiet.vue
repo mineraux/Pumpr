@@ -41,7 +41,7 @@
         </el-row>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" :plain="true" @click="onSubmitIngredient">Sauvegarder mon ingrédient</el-button>
+        <el-button type="success" :plain="true" @click="onSubmitIngredient">Sauvegarder mon ingrédient</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="$store.state.products" stripe style="width: 100%" empty-text="Aucun produit disponible">
@@ -100,6 +100,9 @@ export default class MyDiet extends Vue {
   onSubmitIngredient(): void {
     // TODO: Target specific value to avoid incorrect add in base via window trick from client side
     this.$store.dispatch('saveProduct', this.form)
+
+    // TODO: Reset Input on success
+    // TODO: Add required values
 
     // TODO: Handle this in the promise in the store and handle error case
     this.$message({
