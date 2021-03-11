@@ -5,10 +5,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue } from 'vue-property-decorator'
 import { db } from '@/firebase/db'
 
-@Component({})
 export default class Home extends Vue {
   onClick(): void {
     db.collection('myCollection')

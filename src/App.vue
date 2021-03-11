@@ -1,13 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/my-diet">My Diet</router-link>
-    </div>
-    <router-view />
+    <Header />
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import Header from '@/components/Header.vue'
+
+@Component({
+  components: {
+    Header
+  }
+})
+export default class App extends Vue {}
+</script>
 
 <style lang="scss">
 body {
@@ -16,18 +23,5 @@ body {
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   padding: 30px;
-}
-
-#nav {
-  margin-bottom: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
