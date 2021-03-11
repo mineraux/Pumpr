@@ -1,15 +1,15 @@
 <template>
-  <form @submit.prevent>
-    <div>
-      <label for="email">Email</label>
-      <input type="email" id="email" v-model="loginForm.email" />
-    </div>
-    <div>
-      <label for="paswword">Password</label>
-      <input type="password" id="password" v-model="loginForm.password" />
-    </div>
-    <el-button type="primary" @click="login">Text Button</el-button>
-  </form>
+  <el-row type="flex" justify="center">
+    <el-form ref="form" :model="loginForm" label-position="top" label-width="100px" @submit.prevent>
+      <el-form-item label="Email">
+        <el-input v-model="loginForm.email" type="email"></el-input>
+      </el-form-item>
+      <el-form-item label="Password">
+        <el-input v-model="loginForm.password" type="password"></el-input>
+      </el-form-item>
+      <el-button type="primary" @click="login">Login</el-button>
+    </el-form>
+  </el-row>
 </template>
 
 <script lang="ts">
@@ -28,6 +28,7 @@ export default class Login extends Vue {
     password: ''
   }
 
+  // TODO: Add error label if information are not formatted correctly
   login(): void {
     this.$store.dispatch('login', {
       email: this.loginForm.email,

@@ -58,6 +58,7 @@ export default class MyDiet extends Vue {
   }
 
   onSubmitIngredient(): void {
+    // TODO: Target specific value to avoid incorrect add in base via window trick from client side
     this.$store.dispatch('saveProduct', this.form)
 
     // TODO: Handle this in the promise in the store and handle error case
