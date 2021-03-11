@@ -34,6 +34,14 @@
         <el-button type="primary" :plain="true" @click="onSubmitIngredient">Sauvegarder mon ingrédient</el-button>
       </el-form-item>
     </el-form>
+    <el-table :data="$store.state.products" stripe style="width: 100%">
+      <el-table-column prop="id" label="ID produit" width="180"></el-table-column>
+      <el-table-column prop="productName" label="Nom du produit" width="180"></el-table-column>
+      <el-table-column prop="proteins" label="Protéines"></el-table-column>
+      <el-table-column prop="carbs" label="Glucides"></el-table-column>
+      <el-table-column prop="lipids" label="Lipides"></el-table-column>
+      <el-table-column prop="cals" label="Calories"></el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -55,6 +63,10 @@ export default class MyDiet extends Vue {
     carbs: 0,
     lipids: 0,
     cals: 0,
+  }
+
+  created() {
+    this.$store.dispatch('bindProductsRef')
   }
 
   onSubmitIngredient(): void {

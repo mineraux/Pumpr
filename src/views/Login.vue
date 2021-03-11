@@ -35,5 +35,7 @@ export default class Login extends Vue {
       password: this.loginForm.password
     })
   }
+
+  // TODO: Add Logout
 }
 </script>

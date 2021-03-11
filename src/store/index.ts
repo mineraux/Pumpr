@@ -2,13 +2,17 @@ import { db } from '@/firebase/db'
 import router from '@/router'
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { vuexfireMutations } from 'vuexfire'
+import { firestoreAction, vuexfireMutations } from 'vuexfire'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {},
-  mutations: vuexfireMutations,
+  state: {
+    products: [],
+  },
+  mutations: {
+    ...vuexfireMutations
+  },
   actions: {
     async login({ dispatch }, form) {
       try {
@@ -32,7 +36,11 @@ export default new Vuex.Store({
 
     async saveProduct({dispatch}, form) {
       await db.app.firestore().collection('products').doc().set(form)
-    }
+    },
+
+    bindProductsRef: firestoreAction(context => {
+      return context.bindFirestoreRef('products', db.collection('products'))
+    })
   },
   modules: {},
   getters: {}
