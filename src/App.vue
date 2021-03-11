@@ -19,8 +19,6 @@ export default class App extends Vue {}
 <style lang="scss">
 body {
   margin: 0ch;
-}
-#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   padding: 30px;
 }

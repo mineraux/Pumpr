@@ -35,6 +35,7 @@ export default new Vuex.Store({
     },
 
     async saveProduct({dispatch}, form) {
+      // TODO: Auto compute cals if empty
       await db.app.firestore().collection('products').doc().set(form)
     },
 
