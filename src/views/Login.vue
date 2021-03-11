@@ -1,6 +1,12 @@
 <template>
   <el-row type="flex" justify="center">
-    <el-form ref="form" :model="loginForm" label-position="top" label-width="100px" @submit.prevent>
+    <el-form
+      ref="form"
+      :model="loginForm"
+      label-position="top"
+      label-width="100px"
+      @submit.prevent
+    >
       <el-form-item label="Email">
         <el-input v-model="loginForm.email" type="email"></el-input>
       </el-form-item>

@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    meals: [],
+    meals: []
   },
   mutations: {
     ...vuexfireMutations
@@ -35,14 +35,21 @@ export default new Vuex.Store({
       console.log(userProfile)
     },
 
-    async saveProduct({dispatch}, product) {
+    async saveProduct(_, product) {
       // TODO: Auto compute calories if empty
-      await db.app.firestore().collection('products').doc().set(product)
+      await db.app
+        .firestore()
+        .collection('products')
+        .doc()
+        .set(product)
     },
 
-    async saveMeal({dispatch}, meal) {
-      console.log(meal)
-      await db.app.firestore().collection('meals').doc().set({meal})
+    async saveMeal(_, meal) {
+      await db.app
+        .firestore()
+        .collection('meals')
+        .doc()
+        .set({ meal })
     },
 
     bindProductsRef: firestoreAction(context => {
@@ -50,7 +57,6 @@ export default new Vuex.Store({
     }),
 
     bindMealsRef: firestoreAction(context => {
-
       return context.bindFirestoreRef('meals', db.collection('meals'))
     })
   },
