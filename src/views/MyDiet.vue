@@ -1,7 +1,7 @@
 <template>
   <div class="block">
-    <el-form ref="form" :model="form" label-position="top" label-width="100px" @submit.prevent>
-      <el-form-item label="Nom">
+    <el-form ref="form" :model="form" :rules="rules" label-position="top" label-width="100px" @submit.prevent>
+      <el-form-item label="Nom" prop="productName">
         <el-input v-model="form.productName" placeholder="Riz complet"></el-input>
       </el-form-item>
       <el-form-item label="Catégorie">
@@ -92,6 +92,12 @@ export default class MyDiet extends Vue {
     lipids: 0,
     cals: 0,
   }
+
+    private rules = {
+      productName: [
+        { required: true, message: 'Le nom est nécessaire', trigger: 'blur' },
+      ],
+    }
 
   created() {
     this.$store.dispatch('bindProductsRef')
