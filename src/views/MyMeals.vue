@@ -41,8 +41,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Product, ProductCategory, CategoryChoice } from '@/types/Product'
+import { ProductCategory, CategoryChoice } from '@/types/Product'
 import { CascaderOption } from 'element-ui/types/cascader'
+import { getCascaderOptions } from '@/helper/Meal'
 
 @Component({})
 export default class MyMeals extends Vue {
@@ -57,44 +58,26 @@ export default class MyMeals extends Vue {
       {
         value: 'sourceProt',
         label: 'Source de protéines',
-        children: this.$store.state.products
-          .filter(
-            (product: Product) => product.category == ProductCategory.proteins
-          )
-          .map((product: Product) => {
-            return {
-              value: product.id,
-              label: product.name
-            }
-          })
+        children: getCascaderOptions(
+          this.$store.state.products,
+          ProductCategory.proteins
+        )
       },
       {
         value: 'sourceCarbs',
         label: 'Source de glucides',
-        children: this.$store.state.products
-          .filter(
-            (product: Product) => product.category == ProductCategory.carbs
-          )
-          .map((product: Product) => {
-            return {
-              value: product.id,
-              label: product.name
-            }
-          })
+        children: getCascaderOptions(
+          this.$store.state.products,
+          ProductCategory.proteins
+        )
       },
       {
         value: 'sourceLipids',
         label: 'Source de lipides',
-        children: this.$store.state.products
-          .filter(
-            (product: Product) => product.category == ProductCategory.lipids
-          )
-          .map((product: Product) => {
-            return {
-              value: product.id,
-              label: product.name
-            }
-          })
+        children: getCascaderOptions(
+          this.$store.state.products,
+          ProductCategory.proteins
+        )
       }
     ]
   }
