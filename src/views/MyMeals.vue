@@ -45,7 +45,7 @@ import { ProductCategory, CategoryChoice } from '@/types/Product'
 import { CascaderOption } from 'element-ui/types/cascader'
 import { getCascaderOptions } from '@/helper/Meal'
 
-@Component({})
+@Component
 export default class MyMeals extends Vue {
   created() {
     this.$store.dispatch('bindProductsRef')

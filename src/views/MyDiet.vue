@@ -100,10 +100,9 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component, Vue } from 'vue-property-decorator'
 
-@Component({})
+@Component
 export default class MyDiet extends Vue {
   private categories = [
     {

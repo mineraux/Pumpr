@@ -19,15 +19,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component, Vue } from 'vue-property-decorator'
 
 type Credentials = {
   email: string
   password: string
 }
 
-@Component({})
+@Component
 export default class Login extends Vue {
   loginForm: Credentials = {
     email: '',
@@ -43,5 +42,6 @@ export default class Login extends Vue {
   }
 
   // TODO: Add Logout
+  // TODO: Lock nav if not loggedIn
 }
 </script>
