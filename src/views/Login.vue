@@ -40,8 +40,5 @@ export default class Login extends Vue {
       password: this.loginForm.password
     })
   }
-
-  // TODO: Add Logout
-  // TODO: Lock nav if not loggedIn
 }
 </script>

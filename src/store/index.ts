@@ -1,18 +1,31 @@
 import { db } from '@/firebase/db'
 import router from '@/router'
+import { UserInfo } from '@/types/firebase'
+import { Meal } from '@/types/Meal'
+import { Product } from '@/types/Product'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { firestoreAction, vuexfireMutations } from 'vuexfire'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+type State = {
+  products: Product[]
+  meals: Meal[]
+  user: UserInfo | null
+}
+
+export default new Vuex.Store<State>({
   state: {
     products: [],
-    meals: []
+    meals: [],
+    user: null
   },
   mutations: {
-    ...vuexfireMutations
+    ...vuexfireMutations,
+    setUser(state, user: UserInfo) {
+      state.user = user
+    }
   },
   actions: {
     async login({ dispatch }, form) {
@@ -40,7 +53,7 @@ export default new Vuex.Store({
     async fetchUserProfile() {
       const userProfile = await db.app.auth().currentUser
 
-      console.log(userProfile)
+      this.commit('setUser', userProfile)
     },
 
     async saveProduct(_, product) {

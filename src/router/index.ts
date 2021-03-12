@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import MyDiet from '../views/MyDiet.vue'
 import MyMeals from '../views/MyMeals.vue'
+import { db } from '@/firebase/db'
 
 Vue.use(VueRouter)
 
@@ -21,12 +22,18 @@ const routes: Array<RouteConfig> = [
   {
     path: '/my-diet',
     name: 'My diet',
-    component: MyDiet
+    component: MyDiet,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/my-meals',
     name: 'My Meals',
-    component: MyMeals
+    component: MyMeals,
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -34,6 +41,16 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, _, next) => {
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+
+  if (requiresAuth && !db.app.auth().currentUser) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router
