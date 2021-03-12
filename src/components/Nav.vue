@@ -7,7 +7,6 @@
       <el-menu-item index="/my-diet">My Diet</el-menu-item>
       <el-menu-item index="/my-meals">My Meals</el-menu-item>
     </el-menu>
-    <router-view />
   </div>
 </template>
 

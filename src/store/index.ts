@@ -29,6 +29,14 @@ export default new Vuex.Store({
       }
     },
 
+    async logout() {
+      try {
+        await db.app.auth().signOut()
+      } catch (err) {
+        console.log('Logout error')
+      }
+    },
+
     async fetchUserProfile() {
       const userProfile = await db.app.auth().currentUser
 
