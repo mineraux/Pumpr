@@ -11,7 +11,7 @@
       <el-input v-model="form.mealName"></el-input>
     </el-form-item>
     <el-form-item label="Produits"></el-form-item>
-    <!-- Add row id and set to it on change -->
+    <!-- Add delete button -->
     <el-form-item v-for="(product, index) in form.mealProducts" :key="index">
       <el-cascader
         :options="productOptions"
@@ -42,6 +42,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Product, ProductCategory, CategoryChoice } from '@/types/Product'
+import { CascaderOption } from 'element-ui/types/cascader'
 
 @Component({})
 export default class MyMeals extends Vue {
@@ -51,48 +52,52 @@ export default class MyMeals extends Vue {
 
   //TODO: Handle empty products
 
-  private productOptions = [
-    {
-      value: 'sourceProt',
-      label: 'Source de protéines',
-      children: this.$store.state.products
-        .filter(
-          (product: Product) => product.category == ProductCategory.proteins
-        )
-        .map((product: Product) => {
-          return {
-            value: product.id,
-            label: product.name
-          }
-        })
-    },
-    {
-      value: 'sourceCarbs',
-      label: 'Source de glucides',
-      children: this.$store.state.products
-        .filter((product: Product) => product.category == ProductCategory.carbs)
-        .map((product: Product) => {
-          return {
-            value: product.id,
-            label: product.name
-          }
-        })
-    },
-    {
-      value: 'sourceLipids',
-      label: 'Source de lipides',
-      children: this.$store.state.products
-        .filter(
-          (product: Product) => product.category == ProductCategory.lipids
-        )
-        .map((product: Product) => {
-          return {
-            value: product.id,
-            label: product.name
-          }
-        })
-    }
-  ]
+  get productOptions(): CascaderOption[] {
+    return [
+      {
+        value: 'sourceProt',
+        label: 'Source de protéines',
+        children: this.$store.state.products
+          .filter(
+            (product: Product) => product.category == ProductCategory.proteins
+          )
+          .map((product: Product) => {
+            return {
+              value: product.id,
+              label: product.name
+            }
+          })
+      },
+      {
+        value: 'sourceCarbs',
+        label: 'Source de glucides',
+        children: this.$store.state.products
+          .filter(
+            (product: Product) => product.category == ProductCategory.carbs
+          )
+          .map((product: Product) => {
+            return {
+              value: product.id,
+              label: product.name
+            }
+          })
+      },
+      {
+        value: 'sourceLipids',
+        label: 'Source de lipides',
+        children: this.$store.state.products
+          .filter(
+            (product: Product) => product.category == ProductCategory.lipids
+          )
+          .map((product: Product) => {
+            return {
+              value: product.id,
+              label: product.name
+            }
+          })
+      }
+    ]
+  }
 
   private form = {
     mealName: '',
