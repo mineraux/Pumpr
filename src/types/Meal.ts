@@ -5,6 +5,7 @@ type Meal = {
 
 type MealProducts = {
   id: string
+  weight: number
 }
 
 export { Meal }
