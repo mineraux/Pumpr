@@ -138,19 +138,26 @@ export default class MyDiet extends Vue {
     this.$store.dispatch('bindProductsRef')
   }
 
-  onSubmitIngredient(): void {
+  async onSubmitIngredient() {
     // TODO: Target specific value to avoid incorrect add in base via window trick from client side
-    this.$store.dispatch('saveProduct', this.form)
-
     // TODO: Reset Input on success
     // TODO: Add required values
 
-    // TODO: Handle this in the promise in the store and handle error case
-    this.$message({
-      showClose: true,
-      message: 'Product successfully created',
-      type: 'success'
-    })
+    try {
+      await this.$store.dispatch('saveProduct', this.form)
+
+      this.$message({
+        showClose: true,
+        message: 'Produit créé avec succès',
+        type: 'success'
+      })
+    } catch {
+      this.$message({
+        showClose: true,
+        message: 'Une erreur est parvenue durant la création du produit',
+        type: 'error'
+      })
+    }
   }
 }
 </script>

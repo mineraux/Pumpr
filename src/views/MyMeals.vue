@@ -142,16 +142,22 @@ export default class MyMeals extends Vue {
     })
   }
 
-  onSubmitMeal(): void {
-    this.$store.dispatch('saveMeal', this.form)
+  async onSubmitMeal() {
+    try {
+      await this.$store.dispatch('saveMeal', this.form)
 
-    // TODO: Handle this in the promise in the store and handle error case
-
-    this.$message({
-      showClose: true,
-      message: 'Meal successfully created',
-      type: 'success'
-    })
+      this.$message({
+        showClose: true,
+        message: 'Repas créé avec succès',
+        type: 'success'
+      })
+    } catch {
+      this.$message({
+        showClose: true,
+        message: 'Une erreur est parvenue durant la création du repas',
+        type: 'error'
+      })
+    }
   }
 }
 </script>
