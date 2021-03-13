@@ -88,7 +88,7 @@
       <el-table-column prop="carbs" label="Glucides"></el-table-column>
       <el-table-column prop="lipids" label="Lipides"></el-table-column>
       <el-table-column prop="cals" label="Calories"></el-table-column>
-      <!-- TODO: Add delete button -->
+      <!-- TODO: Add delete button -> error if used in a meal -->
     </el-table>
   </div>
 </template>
@@ -101,6 +101,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { ProductCategory } from '@/types/Product'
 
 @Component
 export default class MyDiet extends Vue {
@@ -120,7 +121,7 @@ export default class MyDiet extends Vue {
   ]
 
   private form = {
-    category: '',
+    category: ProductCategory.proteins,
     name: '',
     proteins: 0,
     carbs: 0,
@@ -138,13 +139,31 @@ export default class MyDiet extends Vue {
     this.$store.dispatch('bindProductsRef')
   }
 
+  resetForm() {
+    this.form = {
+      category: ProductCategory.proteins,
+      name: '',
+      proteins: 0,
+      carbs: 0,
+      lipids: 0,
+      cals: 0
+    }
+  }
+
   async onSubmitIngredient() {
-    // TODO: Target specific value to avoid incorrect add in base via window trick from client side
-    // TODO: Reset Input on success
     // TODO: Add required values
 
     try {
-      await this.$store.dispatch('saveProduct', this.form)
+      await this.$store.dispatch('saveProduct', {
+        category: this.form.category,
+        name: this.form.name,
+        proteins: this.form.proteins,
+        carbs: this.form.carbs,
+        lipids: this.form.lipids,
+        cals: this.form.cals
+      })
+
+      this.resetForm()
 
       this.$message({
         showClose: true,
