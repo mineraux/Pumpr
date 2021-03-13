@@ -1,65 +1,95 @@
 <template>
-  <el-form
-    ref="form"
-    :model="form"
-    :rules="rules"
-    label-position="top"
-    label-width="100px"
-    @submit.prevent
-  >
-    <el-form-item label="Nom du repas" prop="mealName">
-      <el-input v-model="form.mealName"></el-input>
-    </el-form-item>
-    <h3>Produits</h3>
-    <!-- Add delete button -->
-    <el-row :gutter="20">
-      <el-col :span="12">
-        <h4>Catégories</h4>
-      </el-col>
-      <el-col :span="12">
-        <h4>Poids (en gramme)</h4>
-      </el-col>
-    </el-row>
-    <el-row
-      :gutter="20"
-      v-for="(product, index) in form.mealProducts"
-      :key="index"
-    >
-      <el-col :span="12">
-        <el-form-item>
-          <el-cascader
-            :options="productOptions"
-            :show-all-levels="false"
-            placeholder="Selectionnes un produit"
-            @change="e => onChange(index, e)"
-          />
+  <el-container>
+    <el-main>
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        label-position="top"
+        label-width="100px"
+        @submit.prevent
+      >
+        <el-form-item label="Nom du repas" prop="mealName">
+          <el-input v-model="form.mealName"></el-input>
         </el-form-item>
-      </el-col>
-      <el-col :span="12">
-        <el-form-item>
-          <el-input-number
-            v-model="product.weight"
-            controls-position="right"
-            :min="0"
-          />
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-form-item>
-      <el-button @click="onClickAddProduct">Ajouter un produit</el-button>
-    </el-form-item>
+        <h3>Produits</h3>
 
-    <el-form-item>
-      <el-button type="success" :plain="true" @click="onSubmitMeal">
-        Sauvegarder mon repas
-      </el-button>
-    </el-form-item>
-  </el-form>
+        <el-row :gutter="30">
+          <el-col :span="8">
+            <h4>Catégories</h4>
+          </el-col>
+          <el-col :span="8">
+            <h4>Poids (en gramme)</h4>
+          </el-col>
+        </el-row>
+
+        <el-row
+          :gutter="30"
+          v-for="(product, index) in form.mealProducts"
+          :key="index"
+          class="product-row"
+        >
+          <el-col :span="8">
+            <el-form-item>
+              <el-cascader
+                :options="productOptions"
+                :show-all-levels="false"
+                placeholder="Selectionnes un produit"
+                @change="e => onCascaderChange(index, e)"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item>
+              <el-input-number
+                v-model="product.weight"
+                controls-position="right"
+                :min="0"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item>
+              <el-button
+                type="danger"
+                :plain="true"
+                @click="_ => onClickDeleteProduct(index)"
+              >
+                Supprimer ce produit
+              </el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-form-item>
+          <el-button @click="onClickAddProduct">Ajouter un produit</el-button>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="success" :plain="true" @click="onSubmitMeal">
+            Sauvegarder mon repas
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-main>
+  </el-container>
 </template>
 
 <style lang="scss" scoped>
 .el-form {
-  max-width: 400px;
+  max-width: 840px;
+
+  .product-row {
+    .el-form-item {
+      &__content {
+        .el-cascader,
+        .el-input-number,
+        .el-button {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 
 h3,
@@ -131,7 +161,7 @@ export default class MyMeals extends Vue {
     ]
   }
 
-  onChange(index: number, product: CategoryChoice): void {
+  onCascaderChange(index: number, product: CategoryChoice): void {
     this.form.mealProducts[index].id = product[1]
   }
 
@@ -140,6 +170,10 @@ export default class MyMeals extends Vue {
       id: '',
       weight: 0
     })
+  }
+
+  onClickDeleteProduct(productIndex: number): void {
+    this.form.mealProducts.splice(productIndex, 1)
   }
 
   async onSubmitMeal() {
